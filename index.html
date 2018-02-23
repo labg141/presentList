@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<title>Our Present List</title>
+		<link rel="stylesheet" type="text/css" href="./Content/materialize/css/materialize.min.css">
+		<style>       
+			img { width: 100%; height: 100%}
+		</style>
+	</head>	
+	<body>		 
+  	<main>  		
+  		<nav></nav>
+  		<div class="container">  			
+		<div class="row">		
+		<div class="col m8 offset-m2">	
+			<h3>List</h3>
+	  			<div class="carousel carousel-slider"  data-indicators="true">
+				    <a class="carousel-item" value="1"><img src="./Content/Images/download1.jpg"></a>
+				    <a class="carousel-item" value="2"><img src="./Content/Images/download2.jpg"></a>
+				    <a class="carousel-item" value="3"><img src="./Content/Images/download3.jpg"></a>
+				    <a class="carousel-item" value="4"><img src="./Content/Images/download4.jpg"></a>
+				    <a class="carousel-item" value="5"><img src="./Content/Images/download5.jpg"></a>
+			  </div>			       
+			</div>		
+	        <div class="col m8 offset-m2">
+		          <div class="card  light-blue darken-3">
+			            <div class="card-content white-text">
+			              <span class="card-title" id="CurrentTitle"></span>
+			              <p id="CurrentDescription"></p>
+			            </div>
+			            <div class="card-action">
+							<p>
+						      <input type="checkbox" class="filled-in" id="item-taken"/>
+						      <label for="item-taken" id="item-taken-label">I'll take this item</label>
+						    </p>
+			            </div>
+		          </div>
+	        </div>
+      	</div>
+  		</div>
+  	</main>		
+	<script src="./Scripts/jquery-3.3.1.min.js"></script>
+	<script src="./Content/materialize/js/materialize.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+      		$('.carousel.carousel-slider').carousel({
+      			fullWidth: true,
+      			duration: 300,
+      			onCycleTo: function(slide){
+      				var value = $(slide).attr('value');
+      				$("#CurrentTitle,#CurrentDescription").fadeOut(150,function(){
+      					$('#CurrentTitle').text(object[value].text);
+      					$('#CurrentDescription').text(object[value].description);
+      					$('#item-taken').attr('checked',object[value].isTaken)
+      					ToggleTakenCheckbox(object[value].isTaken);
+      				}).fadeIn();
+      			}
+      		});
+    	});
+
+    	$('#item-taken').change(function(){    		
+    		ToggleTakenCheckbox(this.checked)
+    		
+    	});
+
+    	var object = {
+    		1: { text:"object 1", description: "This is description for object 1", isTaken: false},
+    		2: { text:"object 2", description: "This is description for object 2", isTaken: true},
+    		3: { text:"object 3", description: "This is description for object 3", isTaken: true},
+    		4: { text:"object 4", description: "This is description for object 4", isTaken: false},
+    		5: { text:"object 5", description: "This is description for object 5", isTaken: false}
+    	};
+
+    	function ToggleTakenCheckbox(checked)
+    	{
+			if (checked) {
+    			$('#item-taken-label').addClass('white-text');	
+    		}
+    		else {
+    			$('#item-taken-label').removeClass('white-text');		
+    		}
+    	}
+	</script>
+	</body>
+
+</html>
